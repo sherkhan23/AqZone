@@ -1,0 +1,219 @@
+html, body{
+    margin-left: 0;
+    padding: 0;
+}
+#navbar-links > li>a:hover {
+    text-decoration: underline;
+}
+
+#mainSearch{
+    width: 400px;
+    border: 2px solid #FFC528;
+    border-radius: 10px;
+}
+
+#search-head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.container-fluid{
+    margin: 0;
+    padding: 0;
+}
+.nav-link{
+    margin-left: 10px;
+    border-radius: 10px;
+    color: #FFFFFF;
+    background: #FFC528;
+}
+
+.card{
+    border-radius: 10px;
+}
+
+#carousel-example-2{
+    display: flex;
+    width: 80%;
+    margin-top: 50px;
+}
+
+#slide-img2{
+    height: 550px;
+    border: 10px solid white !important;
+}
+.pic-partner{
+    width:60%;
+}
+
+
+#logoAgro{
+    width: 90%;
+}
+.card-main{
+    height: 215px;
+    width: 205px;
+    display: flex;
+    font-size: large;
+    background-color: #FFC528;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    color: white;
+    flex-wrap: wrap;
+}
+.card-main:hover{
+    background: #00C759;
+    color: white;
+}
+
+@media(max-width:961px) {
+    #carouselExampleIndicators{
+        margin-top: 50px;
+    }
+}
+
+a{
+    text-decoration: none;
+}
+
+#blablabla {
+    display: none;
+    animation-duration: 1.5s;
+    animation-fill-mode: both;
+    animation-name: fadeIn;
+}
+
+#blablabla.open {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.dec-review-topbar > a{
+    border: 1px solid #FFC528;
+    border-radius: 5px;
+    padding: 10px;
+    margin-left: 10px;
+    color: black;
+    background-color: #FFC528;
+}
+.dec-review-topbar > a:hover{
+    border-radius: 10px;
+    background-color: white;
+}
+
+.breadcrumb > li > a{
+    text-decoration: none;
+    color: black;
+}
+
+
+#filter > li > button {
+    color: #718096;
+}
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.page-item.active .page-link {
+    z-index: 1;
+    color: yellow;
+    background-color: #00C759;
+    border-color:  #00C759;
+
+
+}
+.carousel-inner > div > img{
+    height: 450px;
+}
+
+.card-column{
+    float: left;
+    width: 45%;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    height: 215px;
+    margin: 5px;
+    background-color: #FFC528;
+    border-radius: 15px;
+    color: white;
+    font-size: large;
+    flex-wrap: wrap;
+}
+
+.card-column:hover{
+    background: #00C759;
+    color: white;
+}
+
+.card-column > button{
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: large;
+}
+
+@media(max-width:500px) {
+    .card-column{
+        height: 150px;
+    }
+    #aid_pic{
+        width: 50px;
+        height: 50px;
+    }
+}
+/* Clear floats after the columns */
+.card-row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+#tabApplication > li > button{
+    color: black;
+}
+#tabApplication button.active{
+    background-color: #FFC528;
+}
+
+#tabApplication button:hover{
+    border: 1px solid #FFC528;
+    box-shadow: 2px 2px #FFC528;
+}
+/*#tabApplication > li > button{*/
+/*    border: 1px solid  black;*/
+/*}*/
+
+
+#app-open{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color:#00C759 ;
+    border-radius: 5px;
+    width: 50%;
+    height: 50%;
+}
+#app-open > i{
+    font-size: 25px;
+}
+
+
+.table-bordered {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+}
