@@ -7,7 +7,6 @@ use App\Models\Aids;
 
 class AidFilter extends QueryFilter{
 
-
     public function brandFilter($aid_id){
 
         return $this->builder->where('aids.brand_id', $aid_id);
@@ -24,7 +23,6 @@ class AidFilter extends QueryFilter{
     public function preparativeFormsFilter($aid_id){
         return $this->builder->where('aids.preparative_forms_id', $aid_id );
     }
-
 
     public function cultureFilter($aid_id){
         return $this->builder->where('aids_utilization_norms.culture_id', $aid_id );

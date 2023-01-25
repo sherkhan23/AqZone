@@ -13,11 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-
 Route::get('/', [\App\Http\Controllers\Controller::class, 'mainPage'])->name('home');
 
+Route::middleware("guest:web")->group(function () {
+    Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login_process', [\App\Http\Controllers\AuthController::class, 'login'])->name('login_process');
 
+    Route::get('/register', [\App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register_process', [\App\Http\Controllers\AuthController::class, 'register'])->name('register_process');
+
+    Route::get('/checkPhoneNumberExist', [\App\Http\Controllers\AuthController::class, 'showCheckPhoneNumberExist'])->name('showCheckPhoneNumberExist');
+    Route::post('/checkPhoneNumberExist', [\App\Http\Controllers\AuthController::class, 'checkPhoneNumberExist'])->name('checkPhoneNumberExist');
+
+});
 
 Route::any('send_sms', [\App\Http\Controllers\SMSController::class, 'send'])->name('send_sms');
 Route::any('sms_process', [\App\Http\Controllers\SMSController::class, 'sms_process'])->name('sms_process');
@@ -67,11 +75,12 @@ Route::middleware("auth:web")->group(function () {
     # end offer accept
 
     # application accept
-    Route::post('/{application_id}', [\App\Http\Controllers\OffersController::class, 'acceptOffer'])->name('acceptOffer');
+    Route::post('acceptApplication/{application_id}', [\App\Http\Controllers\OffersController::class, 'acceptApplication'])->name('acceptApplication');
     # application accept
 
-
-
+    # accept Offer To Draft
+    Route::post('acceptOfferToDraft/{offer_id}', [\App\Http\Controllers\OffersController::class, 'acceptOfferToDraft'])->name('acceptOfferToDraft');
+    # accept Offer To Draft
 
     # profile user culture and location
     Route::delete('/delete-location/{loc_id}',[\App\Http\Controllers\AuthController::class, 'locDel'])->name('locDel');
@@ -87,21 +96,11 @@ Route::middleware("auth:web")->group(function () {
     // Route::post('/posts/comment/{id}', [\App\Http\Controllers\PostController::class, 'comment'])->name('comment');
 });
 
-Route::middleware("guest:web")->group(function () {
-    Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login_process', [\App\Http\Controllers\AuthController::class, 'login'])->name('login_process');
-
-    Route::get('/register', [\App\Http\Controllers\AuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register_process', [\App\Http\Controllers\AuthController::class, 'register'])->name('register_process');
-});
-
-Route::get('/checkPhoneNumberExist', [\App\Http\Controllers\AuthController::class, 'showCheckPhoneNumberExist'])->name('showCheckPhoneNumberExist');
-Route::post('/checkPhoneNumberExist', [\App\Http\Controllers\AuthController::class, 'checkPhoneNumberExist'])->name('checkPhoneNumberExist');
-
 Route::any('/catalog', '\App\Http\Controllers\AidsController@Aids')->name('catalog');
 Route::get('/{aids_id}', [\App\Http\Controllers\AidsController::class, 'getAids'])->name('show_aids');
 
-Route::get('producer', [\App\Http\Controllers\ProducersController::class, 'index'])->name('producer.index');
-
+//Route::get('producer', [\App\Http\Controllers\ProducersController::class, 'index'])->name('producer.index');
 //Route::get('/applications', [\App\Http\Controllers\AuthController::class, 'showApplications'])->name('applications');
 //Route::post('/checkPhoneNumberExist', [\App\Http\Controllers\AuthController::class, 'checkPhoneNumberExist'])->name('checkPhoneNumberExist');
+
+

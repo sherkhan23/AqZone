@@ -97,7 +97,7 @@ class OffersController extends Controller
 
 
         }
-        return redirect()->back()->with('success', 'Предложения успешно сохранено',);
+        return redirect()->back()->with('success', 'Предложения успешно сохранено');
     }
 
     public function receiveOffer(Request $request, $offer_id){
@@ -113,8 +113,8 @@ class OffersController extends Controller
                         OfferData::find($offer_data_id)->delete();
                     }
                 }
-                $saveAllOffer->offer_status = 'draft';
-                $saveAllOffer->save();
+//                $saveAllOffer->offer_status = 'draft';
+//                $saveAllOffer->save();
 
                 $saveAllApp = App::find($saveAllOffer->publication_id);
                 $saveAllApp->app_status = 'draft';
@@ -125,10 +125,18 @@ class OffersController extends Controller
                 break;
             case 'saveAll':
                 $saveAllOffer = Offers::find($offer_id);
-                $saveAllOffer->offer_status = 'draft';
-                $saveAllOffer->save();
+
+//                $saveAllOffer->offer_status = 'draft';
+//                $saveAllOffer->save();
+
 
                 $saveAllApp = App::find($saveAllOffer->publication_id);
+                $selectAllOfferData = OfferData::find($request->offer_data_id);
+                $selectAllOfferData->selected = '1';
+                $selectAllOfferData->save();
+                $saveAllOffer->selectedOffer = '1';
+                $saveAllOffer->save();
+
                 $saveAllApp->app_status = 'draft';
                 $saveAllApp->save();
 
@@ -138,7 +146,18 @@ class OffersController extends Controller
     }
 
 
-    public function acceptOffer($application_id){
+    // принятие от фермера с драфт к селлеру
+    public function acceptOfferToDraft($offer_id){
+
+        $offerAccept = Offers::find($offer_id);
+        $offerAccept->offer_status = 'accept';
+        $offerAccept->save();
+
+        return redirect()->back()->with('updateMess','Успешно сохранено');
+    }
+
+
+    public function acceptApplication($application_id){
         $applicationAccept = App::find($application_id);
         $applicationAccept->app_status = 'accept';
         $applicationAccept->save();
@@ -149,6 +168,9 @@ class OffersController extends Controller
 
         return redirect()->back()->with('updateMess','Успешно сохранено');
     }
+
+
+
 
 
     public function index()
