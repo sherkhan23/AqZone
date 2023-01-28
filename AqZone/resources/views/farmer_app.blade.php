@@ -311,13 +311,13 @@
                                                                                     <input style="display: none" class="form-control" name="requiredQuantity" value="{{$quantity = $el->user_culture_util_norm*$el->user_culture_square}}">
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input class="form-control" type="number" name="offerQuantity[{{$el->app_id}}]" id="offerQuantity-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}" required>
+                                                                                    <input class="form-control" min="1" type="number" name="offerQuantity[{{$el->app_id}}]" id="offerQuantity-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}" required>
                                                                                 </td>
                                                                                 <td>
-                                                                                    <input class="form-control" type="number" name="offerSumNDS[{{$el->app_id}}]" id="offerPriceNDS-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}" required>
+                                                                                    <input class="form-control" min="1" type="number" name="offerSumNDS[{{$el->app_id}}]" id="offerPriceNDS-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}" required>
                                                                                 </td>
                                                                                 <td class="d-flex" style="justify-content: center" >
-                                                                                    <span><input style="width: 150%" name="sumNDS[{{$el->app_id}}]" id='summands-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}' type="text" class="form-control formBlock"/></span>
+                                                                                    <span><input style="width: 150%" readonly name="sumNDS[{{$el->app_id}}]" id='summands-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}' type="text" class="form-control formBlock"/></span>
 
                                                                                     <span style="justify-content: center" class="d-flex p-3" id="summands-{{$el->application_id}}-{{$el->app_id}}-{{$el->aids_id}}"></span>
                                                                                     <script>

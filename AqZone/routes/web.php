@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Aids;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\Controller::class, 'mainPage'])->name('home');
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group(function (){
+    Route::get('/', [\App\Http\Controllers\AdminController::class, 'admin'])->name('admin');
+    Route::get('/aids', [\App\Http\Controllers\AdminController::class, 'forAids'])->name('aids');
+});
 
 Route::middleware("guest:web")->group(function () {
     Route::get('/login', [\App\Http\Controllers\AuthController::class, 'showLoginForm'])->name('login');
@@ -37,7 +43,7 @@ Route::any('sms_process_check', [\App\Http\Controllers\SMSController::class, 'sm
 //});
 Route::middleware("auth:web")->group(function () {
     #profile
-    Route::any('/profile',[\App\Http\Controllers\AuthController::class, 'showProfile'])->name('profile');
+    Route::get('/profile',[\App\Http\Controllers\AuthController::class, 'showProfile'])->name('profile');
     Route::post('/profile', [\App\Http\Controllers\AuthController::class, 'editProfile'])->name('editProfile');
     Route::post('/editLocation', [\App\Http\Controllers\AuthController::class, 'editLocation'])->name('editLocation');
     Route::post('/editCulture', [\App\Http\Controllers\AuthController::class, 'editCulture'])->name('editCulture');

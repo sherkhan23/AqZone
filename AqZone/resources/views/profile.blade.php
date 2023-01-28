@@ -26,7 +26,7 @@
                 <div class="card mb-4">
                     <div class="card-body text-center">
                         @if(Auth::user()->farmer == true)
-                            <img src="media/farmer.webp" alt="avatar"
+                            <img src="media/farmer.png" alt="avatar"
                                  class="rounded-circle img-fluid center py-3" style="width: 150px;">
                         @elseif(Auth::user()->farmer == false)
                             <img src="media/seller.png" alt="avatar"

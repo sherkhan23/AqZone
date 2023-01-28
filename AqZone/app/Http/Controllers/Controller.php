@@ -43,7 +43,7 @@ class Controller extends BaseController
                         $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
                     });
             })
-            ->paginate();
+            ->paginate(10);
 
         return view('home', compact('aids'));
     }

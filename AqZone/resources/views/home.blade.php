@@ -33,6 +33,56 @@
 @section('content') @endsection
 @include('inc.navbar')
 @include('inc.header')
+<div class="m-4">
+    <ul class="nav nav-tabs" id="myTab">
+        <li class="nav-item">
+            <a href="#users" class="nav-link active" data-bs-toggle="tab">
+                Пользователи
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#aids" class="nav-link" data-bs-toggle="tab">
+                Пестициды
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="#messages" class="nav-link" data-bs-toggle="tab">
+                Создание пестицидов
+            </a>
+        </li>
+    </ul>
 
+    <div class="tab-content">
+        <div class="tab-pane fade show active" id="users">
+            {{-- admin users --}}
+            user
+            {{-- admin users --}}
+        </div>
+        <div class="tab-pane fade" id="aids">
+            {{-- admin users --}}
+            aids
+            {{-- admin users --}}
+        </div>
+        <div class="tab-pane fade" id="messages">
+            <h2>Создание пестицидов</h2>
+        </div>
+    </div>
+
+</div>
+<script>
+    $(document).ready(function() {
+        if (location.hash) {
+            $("a[href='" + location.hash + "']").tab("show");
+        }
+        $(document.body).on("click", "a[data-bs-toggle='tab']", function(event) {
+            location.hash = this.getAttribute("href");
+        });
+    });
+    $(window).on("popstate", function() {
+        var anchor = location.hash || $("a[data-bs-toggle='tab']").first().attr("href");
+        $("a[href='" + anchor + "']").tab("show");
+    });
+
+</script>
 
 @include('inc.footer')

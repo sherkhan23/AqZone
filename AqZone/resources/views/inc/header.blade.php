@@ -63,13 +63,13 @@
         <div class="col-md-4">
             <div class="row">
                 <a class="card-column text-center" href="{{route("catalog")}}">
-                    <button class="p-4 btn main-buttons">
+                    <button class="btn main-buttons">
                         Каталог
                     </button>
                 </a>
 
                 <a class="card-column text-center" href="{{route("cart")}}">
-                    <button class="p-4 btn main-buttons">
+                    <button class="btn main-buttons">
                         Корзина
                     </button>
                 </a>
@@ -77,7 +77,7 @@
 
             <div class="row">
                 <a class="card-column text-center" href="{{route("applications")}}">
-                    <button class="p-4 btn main-buttons">
+                    <button class="btn main-buttons">
                         Заявки
                     </button>
                 </a>

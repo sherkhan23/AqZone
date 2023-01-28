@@ -146,6 +146,7 @@ class ApplicationsController extends Controller
                             });
                     });
             })
+            ->orderBy('offers.created_at', 'desc')
             ->get();
 
         $offersCollect = collect($offers)

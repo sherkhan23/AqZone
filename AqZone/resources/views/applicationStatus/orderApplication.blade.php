@@ -123,13 +123,11 @@
                                                     </tr>
                                                     </thead>
                                                     @foreach($offersCollect as $offerCollect)
-                                                        @if($offerCollect->first()->publication_id == $collect->first()->application_id and $offerCollect->first()->offer_status == 'consideration' or $offerCollect->first()->offer_status == 'accept')
-                                                            <tbody>
+                                                        @if($offerCollect->first()->publication_id == $collect->first()->application_id and $offerCollect->first()->offer_status == 'accept' and $offerCollect->first()->selectedOffer == '1')                                                            <tbody>
                                                             <tr>
                                                                 <th scope="row">000{{$offerCollect->first()->offer_id}}</th>
                                                                 <td>
                                                                     {{$requiredQ = \App\Models\OfferData::query()->where('offer_collect', '=', $offerCollect->first()->offer_id)->get()->sum('requiredQuantity') / \App\Models\OfferData::query()->where('offer_collect', '=', $offerCollect->first()->offer_id)->get()->sum('sumNDS')}}
-
                                                                 </td>
                                                                 <td>
                                                                     {{\App\Models\offerData::query()->where('offer_collect', '=', $offerCollect->first()->offer_id)->get()->sum('sumNDS')}}
