@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('inc.navbar')
 @section('title') Login @endsection
 <head>
     <meta charset="UTF-8">

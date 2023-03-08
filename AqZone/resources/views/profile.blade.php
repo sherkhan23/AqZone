@@ -13,8 +13,8 @@
             <div class="col">
                 <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
                     <ol class="breadcrumb mb-0">
-                        <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                        <li class="breadcrumb-item"><a href="#">Пользватель</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('home')}}">Главная</a></li>
+                        <li class="breadcrumb-item"><a href="#">Пользователь</a></li>
                         <li class="breadcrumb-item active text-success" aria-current="page">{{ $user->name }}</li>
                     </ol>
                 </nav>
@@ -25,18 +25,18 @@
             <div class="col-lg-4">
                 <div class="card mb-4">
                     <div class="card-body text-center">
-                        @if(Auth::user()->farmer == true)
+                        @if(Auth::user()->role == 'farmer')
                             <img src="media/farmer.png" alt="avatar"
                                  class="rounded-circle img-fluid center py-3" style="width: 150px;">
-                        @elseif(Auth::user()->farmer == false)
+                        @elseif(Auth::user()->role == 'seller')
                             <img src="media/seller.png" alt="avatar"
                                  class="rounded-circle img-fluid center" style="width: 150px;">
                         @endif
 
                         <h5 class="my-3">{{ $user->name }}</h5>
-                        @if(Auth::user()->farmer == true)
+                        @if(Auth::user()->role == 'farmer')
                             <p class="text-muted mb-1">Фермер</p>
-                        @elseif(Auth::user()->farmer == false)
+                        @elseif(Auth::user()->role == 'seller')
                             <p class="text-muted mb-1">Продавец</p>
                         @endif
 
@@ -114,9 +114,9 @@
                                     <p class="mb-0">Тип аккаунта</p>
                                 </div>
                                 <div class="col-sm-9">
-                                    @if(Auth::user()->farmer == true)
+                                    @if(Auth::user()->role == 'farmer')
                                         <p class="text-muted mb-1">Фермер</p>
-                                    @elseif(Auth::user()->farmer == false)
+                                    @elseif(Auth::user()->role == 'seller')
                                         <p class="text-muted mb-1">Продавец</p>
                                     @endif
                                 </div>

@@ -16,7 +16,6 @@ class AidsUtilizationNormsController extends Controller
     {
         $aidsUtilizationNorms = AidsUtilizationNorms::query();
         $aidsUtilNorms = $aidsUtilizationNorms
-
             ->join('aids', function ($join) {
                 $join->on('aids_utilization_norms.aids_id', '=', 'aids.aids_id');
             })->join('cultures', function ($join) {
@@ -27,11 +26,26 @@ class AidsUtilizationNormsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function createUtilNorm(Request $request,$aids_id)
     {
-        //
+        $utilNorm = AidsUtilizationNorms::query()->create([
+            'culture_id' => $request['culture_id'],
+            'aids_id' => $aids_id,
+            'register_date' => $request['register_date'],
+            'minUtilizationRate' => $request['util_norm_min'],
+            'maxUtilizationRate' => $request['util_norm_max'],
+            'utilizationRate' => ($request['util_norm_min']+$request['util_norm_max'])/2,
+            'utilizationRateComment' => 0,
+            'finalApplicationTerms' => $request['last_term'],
+            'min_multiplicity' => $request['min_multiplicity'],
+            'max_multiplicity' => $request['max_multiplicity'],
+            'hazard_id' => $request['hazard_id']
+        ]);
+
+        return redirect()->back()->with('updateMess','Успешно сохранено');
+
     }
 
     /**

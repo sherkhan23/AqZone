@@ -10,6 +10,21 @@ class AidsUtilizationNorms extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'util_norm_id';
+    protected $fillable = [
+        'culture_id',
+        'aids_id',
+        'register_date',
+        'minUtilizationRate',
+        'maxUtilizationRate',
+        'utilizationRate',
+        'utilizationRateComment',
+        'finalApplicationTerms',
+        'min_multiplicity',
+        'max_multiplicity',
+        'hazard_id',
+    ];
+
     public function AidsUtilizationNorms(Request $request){
         $aidsUtilizationNorms = AidsUtilizationNorms::query();
         $aidsUtilNorms = $aidsUtilizationNorms->join('aids', function ($join) {
@@ -18,8 +33,9 @@ class AidsUtilizationNorms extends Model
 
     }
 
-    public function aids(){
-        return $this->belongsToMany(Aids::class);
+    public function aids()
+    {
+        return $this->belongsTo(Aids::class, 'aids_id', 'aids_id');
     }
 
     public function cultures(){

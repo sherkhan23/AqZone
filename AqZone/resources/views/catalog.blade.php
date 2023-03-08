@@ -50,7 +50,9 @@
                         <i style="font-size: 30px;" class="bi bi-menu-down p-2" onclick="hide(document.getElementById('form1'))"></i>
                     </form>
                     <div id="form1" style="display: none">
+                        @livewireStyles
                         <livewire:brand-producer></livewire:brand-producer>
+                        @livewireStyles
                     </div>
                     <form>
                         <button class="button form-control text-dark" style="background-color: #FFC528"  type="submit">Сбросить фильтр</button>
@@ -105,14 +107,14 @@
                                         </a>
 
                                         @auth('web')
-                                            @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+                                            @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
                                                 <form class="w-100" method="POST" action="{{ route('update_cart', $el->aids_id)}}">
                                                     @csrf
 
 
 
                                                     @foreach($carts as $cart)
-                                                        @if($cart->aids_id == $el->aids_id and $cart->user_id == \Illuminate\Support\Facades\Auth::id())
+                                                        @if($cart->aids_id == $el->aids_id and $cart->user_id == auth()->id())
                                                             <a href="{{route('cart')}}">
                                                                 <button style="background-color: #ef6464" class="btn btn-outline btn-sm mt-2 w-100" type="button">
                                                                     <i class="bi bi-trash" style="font-size: 15px"></i> Убрать с корзины
@@ -121,13 +123,11 @@
                                                         @endif
                                                     @endforeach
 
+
                                                     <button id="onetime" style="background-color: #FFC528;" class="btn btn-outline btn-sm mt-2 w-100" type="button"
                                                             data-toggle="modal" data-target="#modal-cart-{{$el->aids_id}}">
                                                         <i class="bi bi-cart3"></i> Добавить в корзину
                                                     </button>
-
-
-
 
 
                                                     @error('user_culture')
@@ -149,9 +149,17 @@
                                                                     <div class="form-check">
                                                                         <label>Рекомендуемые культуры:</label>
                                                                         <input onclick="user_cult2(document.getElementById('block-other-culture-{{$el->aids_id}}'))" type="radio" value="default-culture" class="form-check-input" name="user_culture" checked>
-                                                                        <label class="form-check-label" for="user_culture">{{$el->cultureName}} </label>
-                                                                        <input class="d-none" value="{{$el->cultureName}}" name="user-default-culture">
-                                                                        <input class="d-none" value="{{$el->utilizationRate}}" name="aidsUtilizationRate">
+                                                                        @foreach($aids_util_norms as $aids_util_norm)
+                                                                            @if($aids_util_norm->aids_id == $el->aids_id)
+                                                                                <div class="form-check">
+                                                                                    <input class="form-check-input" type="radio" name="user-default-culture" id="{{$aids_util_norm->cultureName}}" value="{{$aids_util_norm->cultureName}}">
+                                                                                    <label class="form-check-label" for="{{$aids_util_norm->cultureName}}">
+                                                                                        {{$aids_util_norm->cultureName}}
+                                                                                    </label>
+                                                                                    <input class="d-none" value="{{$aids_util_norm->utilizationRate}}" name="aidsUtilizationRate">
+                                                                                </div>
+                                                                            @endif
+                                                                        @endforeach
 
                                                                         @foreach($userCulture as $userCult)
                                                                             @if($el->cultureName == $userCult->cultureName and $userCult->status == 1

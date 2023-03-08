@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cultures;
 use App\Models\HazardObjects;
 use Illuminate\Http\Request;
 
@@ -10,21 +11,31 @@ class HazardObjectsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        //
+        $hazards = HazardObjects::query()
+            ->orderBy('hazard_id', 'asc')
+            ->paginate();
+
+        $cultures = Cultures::query()->get();
+
+        return view('admin.hazards', compact('hazards', 'cultures'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $data = HazardObjects::query()->create([
+            'hazardName' => $request->get('hazardName'),
+        ]);
+
+        return redirect()->back()->with('updateMess','Успешно добавлено');
     }
 
     /**
@@ -53,11 +64,17 @@ class HazardObjectsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\HazardObjects  $hazardObjects
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function edit(HazardObjects $hazardObjects)
+    public function edit($hazard_id, Request $request)
     {
-        //
+        $hazard = HazardObjects::query()->find($hazard_id);
+
+        $hazard->hazardName = $request['hazardName'];
+        $hazard->save();
+
+        return redirect()->back()->with('updateMess','Успешно добавлено');
+
     }
 
     /**
@@ -76,10 +93,12 @@ class HazardObjectsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\HazardObjects  $hazardObjects
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(HazardObjects $hazardObjects)
+    public function destroy($hazard_id)
     {
-        //
+        $hazard = HazardObjects::query()->find($hazard_id)->delete();
+
+        return redirect()->back()->with('updateMess','Успешно удалено');
     }
 }

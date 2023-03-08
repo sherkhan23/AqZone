@@ -36,8 +36,8 @@
             <div class="row">
                 <div class="col-md-6" style=" display: flex; align-items: center;">
                     <!-- img slide -->
-                    <img style="border-radius: 20px; width: 500px; display: flex; align-items: center"
-                         src="https://sc02.alicdn.com/kf/HTB1Iw6JelaE3KVjSZLeq6xsSFXaf/228459776/HTB1Iw6JelaE3KVjSZLeq6xsSFXaf.jpg">
+                     <img style="border-radius: 20px; width: 500px; display: flex; align-items: center"
+                             src="media/aidsPicture.png">
 
                 </div>
                 <div class="col-md-6">
@@ -54,8 +54,7 @@
                     {{--                                <i class="bi bi-star-fill"></i>--}}
                     {{--                                <i class="bi bi-star-half"></i></small><a href="#" class="ms-2">(30 reviews)</a></div>--}}
                     {{--                        <div class="fs-4">--}}
-                    <!-- price --><span style="font-size: larger" class="fw-bold text-dark">{{$aidItem->aidPrice}} тенге</span> <span class="text-decoration-line-through text-muted">$35</span><span><small class="fs-6 ms-2 text-danger">26%
-                  Off</small></span>
+
                     </div>
                     <!-- hr -->
                     <div class="mt-3 row justify-content-start g-2 align-items-center">
@@ -67,20 +66,7 @@
                         </div>
 
                     </div>
-                    <hr class="my-6">
 
-                    <div>
-
-
-                        <!-- input -->
-                        <div class="input-group input-spinner mt-5">
-                            <p>Количество</p>
-                            <input style="border: 1px solid; border-radius: 10px; margin-left: 20px"
-                                   type="number" step="1" max="10" value="1" name="quantity"
-                                   class="quantity-field form-control-sm form-input">
-                        </div>
-
-                    </div>
 
                     <!-- hr -->
                     <hr class="my-6">
@@ -125,25 +111,57 @@
                                         </tr>
                                         </tbody>
                                     </table>
+
+                                    <table class="table table-borderless">
+                                        <tbody>
+                                        @foreach($dosages as $dosage)
+                                            @if($dosage->aids_id == $aidItem->aids_id)
+                                                <tr>
+                                                    <th>Компонент</th>
+                                                    <td>{{($dosage->componentName)}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>Единица измерения</th>
+                                                    <td>{{$dosage->unitOfMeasureName}}</td>
+
+                                                </tr>
+                                                <tr>
+                                                    <th>Дозировка</th>
+                                                    <td>{{$dosage->dosage}}</td>
+
+                                                </tr>
+                                            @endif
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+
                                 </div>
                             </div>
                             <div id="des-details2" class="tab-pane mt-3">
                                 <table class="table table-borderless">
 
                                     <tbody>
-                                    <tr>
-                                        <th>Культуры</th>
-                                        <td>
-                                            {{$aidItem->hazardName}}
-                                        </td>
-                                    </tr>
+                                    @foreach($aids_util_norms as $aids_util_norm)
+                                        @if($aids_util_norm->aids_id == $aidItem->aids_id)
+                                            <tr>
+                                                <th>
+                                                    Культуры
+                                                    {{$cultureCount+=1}}:
+                                                </th>
+                                                <td>
+                                                    {{$aids_util_norm->cultureName}}
+                                                </td>
+                                            </tr>
 
-                                    <tr>
-                                        <th>Вредные обьекты</th>
-                                        <td>
-                                            {{$aidItem->cultureName}}
-                                        </td>
-                                    </tr>
+                                            <tr>
+                                                <th>Вредные обьекты {{$cultureHazardCount+=1}}:</th>
+                                                <td>
+                                                    {{$aids_util_norm->hazardName}}
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
 
                                     </tbody>
                                 </table>

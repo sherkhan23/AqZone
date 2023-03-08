@@ -63,26 +63,14 @@ class ApplicationsController extends Controller
                     ->leftJoin('preparative_forms', function ($join) {
                         $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
                     })->leftJoin('producers', function ($join) {
-                        $join->on('aids.producer_id', '=', 'producers.id');
+                        $join->on('aids.producer_id', '=', 'producers.producer_id');
                     })
                     ->leftJoin('brands', function ($join) {
                         $join->on('aids.brand_id', '=', 'brands.id');
                     })
                     ->leftJoin('aid_components', function ($join) {
-                        $join->on('aids.aid_components_id', '=', 'aid_components.id');
-                    })
-                    ->leftJoin('aids_utilization_norms', function ($join) {
-                        $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
+                        $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
 
-                            ->leftJoin('cultures', function ($join) {
-                                $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                            })->leftJoin('hazard_objects', function ($join) {
-                                $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                            })
-                            ->leftJoin('unit_of_measures', function ($join) {
-                                $join->on('aids_utilization_norms.unit_of_measure_id', '=', 'unit_of_measures.unit_of_measure_id');
-                            });
                     });
             })
             ->orderBy('applications.application_id', 'desc')
@@ -109,13 +97,13 @@ class ApplicationsController extends Controller
                     ->leftJoin('preparative_forms', function ($join) {
                         $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
                     })->leftJoin('producers', function ($join) {
-                        $join->on('aids.producer_id', '=', 'producers.id');
+                        $join->on('aids.producer_id', '=', 'producers.producer_id');
                     })
                     ->leftJoin('brands', function ($join) {
                         $join->on('aids.brand_id', '=', 'brands.id');
                     })
                     ->leftJoin('aid_components', function ($join) {
-                        $join->on('aids.aid_components_id', '=', 'aid_components.id');
+                        $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
                     });
             })
             ->join('offers', function ($join) {
@@ -214,26 +202,14 @@ class ApplicationsController extends Controller
                     ->leftJoin('preparative_forms', function ($join) {
                         $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
                     })->leftJoin('producers', function ($join) {
-                        $join->on('aids.producer_id', '=', 'producers.id');
+                        $join->on('aids.producer_id', '=', 'producers.producer_id');
                     })
                     ->leftJoin('brands', function ($join) {
                         $join->on('aids.brand_id', '=', 'brands.id');
                     })
                     ->leftJoin('aid_components', function ($join) {
-                        $join->on('aids.aid_components_id', '=', 'aid_components.id');
-                    })
-                    ->leftJoin('aids_utilization_norms', function ($join) {
-                        $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
+                        $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
 
-                            ->leftJoin('cultures', function ($join) {
-                                $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                            })->leftJoin('hazard_objects', function ($join) {
-                                $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                            })
-                            ->leftJoin('unit_of_measures', function ($join) {
-                                $join->on('aids_utilization_norms.unit_of_measure_id', '=', 'unit_of_measures.unit_of_measure_id');
-                            });
                     });
             })
             ->first();

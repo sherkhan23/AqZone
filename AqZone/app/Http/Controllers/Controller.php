@@ -25,23 +25,13 @@ class Controller extends BaseController
             ->leftJoin('preparative_forms', function ($join) {
                 $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
             })->leftJoin('producers', function ($join) {
-                $join->on('aids.producer_id', '=', 'producers.id');
+                $join->on('aids.producer_id', '=', 'producers.producer_id');
             })
             ->leftJoin('brands', function ($join) {
                 $join->on('aids.brand_id', '=', 'brands.id');
             })
             ->leftJoin('aid_components', function ($join) {
-                $join->on('aids.aid_components_id', '=', 'aid_components.id');
-            })
-            ->leftJoin('aids_utilization_norms', function ($join) {
-                $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
-
-                    ->leftJoin('cultures', function ($join) {
-                        $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                    })->leftJoin('hazard_objects', function ($join) {
-                        $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                    });
+                $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
             })
             ->paginate(10);
 

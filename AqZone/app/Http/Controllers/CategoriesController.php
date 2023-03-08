@@ -4,82 +4,41 @@ namespace App\Http\Controllers;
 
 use App\Models\Categories;
 use Illuminate\Http\Request;
+use App\Exports\CategoryExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\CategoryImport;
+use Nette\Utils\Paginator;
 
 class CategoriesController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
+    public function getCategories(){
+        $categories = Categories::query()->paginate(7);
+        \Illuminate\Pagination\Paginator::useBootstrap();
+        return view('admin.categories', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function editCategories(Request $request, $id){
+        $category = Categories::query()->find($id);
+        $category->categoryName = $request->categoryName;
+        $category->details = $request->details;
+        $category->save();
+        return redirect()->back()->with('updateMess','Успешно добавлено');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+    public function delCategory($id){
+        $category = Categories::query()->find($id)->delete();
+        return redirect()->back()->with('updateMess','Успешно удалено');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Categories $categories)
-    {
-        //
+    public function exportCategory(){
+        return Excel::download(new CategoryExport(), 'categories.xlsx');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Categories $categories)
+    public function importCategory(Request $request)
     {
-        //
+        Excel::import(new CategoryImport(), $request->file('file'));
+        return redirect()->back()->with('updateMess','Успешно добавлено');
+
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Categories $categories)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Categories  $categories
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Categories $categories)
-    {
-        //
-    }
 }

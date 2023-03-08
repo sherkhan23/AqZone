@@ -9,7 +9,13 @@ class HazardObjects extends Model
 {
     use HasFactory;
 
-    public function aidUtilNorm(){
-        return $this->belongsToMany(AidsUtilizationNorms::class);
+    protected $primaryKey = 'hazard_id';
+    protected $fillable = [
+        'hazardName',
+    ];
+
+    public function utilNorms()
+    {
+        return $this->belongsTo(AidsUtilizationNorms::class, 'hazard_id', 'hazard_id');
     }
 }

@@ -78,14 +78,17 @@
                 <h6 class="dropdown-header">
                 </h6>
                 @auth("web")
-                    @if(Auth::user()->farmer == true)
+                    @if(Auth::user()->role == 'farmer')
                         <a class="dropdown-item text-danger" href="#">Фермер</a>
-                    @elseif(Auth::user()->farmer == false)
+                    @elseif(Auth::user()->role == 'seller')
                         <a class="dropdown-item text-danger" href="#">Продавец</a>
                     @endif
-
+                        @if(auth()->user()->isAdmin == 1)
+                            <a class="dropdown-item" href="{{route('admin')}}"> <i class="bi bi-person-check-fill"></i> Админка</a>
+                        @endif
                     <a class="dropdown-item" href="{{route('profile')}}"> <i class="bi bi-person-circle btn-outline-warning p-1"></i> Профиль</a>
                     <a class="dropdown-item" href="{{ route("logout") }}"> <i class="bi bi-box-arrow-right btn-outline-warning p-1"></i> Выйти</a>
+
                 @endauth
 
                 @guest("web")

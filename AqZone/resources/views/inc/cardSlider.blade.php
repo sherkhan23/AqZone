@@ -70,7 +70,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-6 d-flex" style="align-items: center; justify-content: center">
-                                            <a style="background-color: #00C759" class="text-white btn btn-md" href="{{ route('show_aids', $el->aids_id) }}">
+                                            <a style="background-color: #00C759" class="text-white btn btn-md" href="{{route('show_aids', $el->aids_id) }}">
                                                 Перейти
                                             </a>
                                         </div>

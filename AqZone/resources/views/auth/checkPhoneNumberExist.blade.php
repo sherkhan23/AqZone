@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@include('inc.navbar')
 <head>
     <!-- Подключение библиотеки jQuery -->
     <script src="jquery.js"></script>
@@ -45,17 +46,9 @@
 
 
                                     <button style="background-color: #00C759" class="w-100 mb-2 btn btn-lg text-white" type="submit">Проверить</button>
-                                    <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+                                    <small class="text-muted">Нажав Проверить, вы соглашаетесь с условиями использования.</small>
                                     <hr class="my-4">
-                                    <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
-                                    <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
-                                        <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"></use></svg>
-                                        Sign up with Twitter
-                                    </button>
-                                    <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
-                                        <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"></use></svg>
-                                        Sign up with Facebook
-                                    </button>
+
                                 </form>
                                 <?php
                                 if(isset($_POST['phoneNumber'])) {

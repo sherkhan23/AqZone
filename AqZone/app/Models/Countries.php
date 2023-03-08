@@ -9,6 +9,9 @@ class Countries extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'countryName'
+    ];
     public function user()
     {
         return $this->belongsTo(User::class);

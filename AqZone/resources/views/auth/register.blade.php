@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@include('inc.navbar')
 @section('title') Register @endsection
 <body class="">
 <section class="shadow-lg">
@@ -47,19 +47,19 @@
 
 
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="farmer" id="1" value="1">
-                                        <label class="form-check-label" for="1">
+                                        <input class="form-check-input" type="radio" name="role" id="farmer" value="farmer">
+                                        <label class="form-check-label" for="farmer">
                                             Фермер
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="farmer" id="0" value="0">
-                                        <label class="form-check-label" for="0">
+                                        <input class="form-check-input" type="radio" name="role" id="seller" value="seller">
+                                        <label class="form-check-label" for="seller">
                                             Продавец
                                         </label>
                                     </div>
 
-                                    @error('farmer')
+                                    @error('role')
                                     <p class="text-danger">{{ $message }}</p>
                                     @enderror
 

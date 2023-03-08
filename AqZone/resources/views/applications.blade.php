@@ -25,11 +25,11 @@
 @include('inc.navbar')
 <div class="container">
     @include('inc.header-links')
-    @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+    @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
         <div class="row">
             <ul class="nav nav-tabs" id="tabApplication" role="tablist">
 
-                @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+                @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
                     <li class="nav-item" role="presentation">
                         <button class="nav-link active btn-warning" id="newApp-tab" data-bs-toggle="tab" data-bs-target="#newApp" type="button" role="tab" aria-controls="newApp" aria-selected="true">
                             Новые
@@ -79,9 +79,8 @@
                         <small class="text-muted">Нажмите в инконку чтобы открыть фильтр</small>
                         <form action="{{ route("catalog") }}" method="GET"  id="search-head" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3 mb-3" role="search">
                             <input name="search_field" type="search" id="mainSearch" class="form-control" placeholder="Поиск" aria-label="Search">
-                            <img src="media/Frame 24.png" class="btn border-0 my-3"
+                            <img src="media/Frame24.png" class="btn border-0 my-3"
                                  onclick="hide(document.getElementById('form1'))">
-                            </img>
                         </form>
                         <form>
                             <button class="button form-control text-dark" style="background-color: #FFC528"  type="submit">Искать</button>
@@ -92,7 +91,7 @@
                 <div class="col-md-8">
                     <div class="tab-content" id="tabApplication">
 
-                        @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+                        @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
                             <div class="tab-pane fade show active" id="newApp" role="tabpanel" aria-labelledby="newApp-tab">
                                 @if(session('updateMess'))
                                     <p class="p-2 bg-success text-white rounded mt-3">{{session('updateMess')}}</p>

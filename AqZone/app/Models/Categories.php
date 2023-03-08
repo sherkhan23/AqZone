@@ -9,6 +9,11 @@ class Categories extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'categoryName',
+        'details'
+    ];
+
     public function aids(): \Illuminate\Database\Eloquent\Relations\HasManyThrough
     {
         return $this->hasManyThrough(Brands::class,Aids::class);

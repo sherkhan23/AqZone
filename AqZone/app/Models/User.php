@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,6 +12,11 @@ use Illuminate\Contracts\Auth\{MustVerifyEmail};
 
 class User extends Authenticatable implements MustVerifyEmail
 {
+//    public function canAccessFilament(): bool
+//    {
+//        return str_ends_with($this->email, '@gmail.com');
+//    }
+
     use Notifiable;
 
     protected $primaryKey = 'user_id';
@@ -25,7 +31,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'phoneNumber',
-        'farmer',
+        'role',
         'password',
     ];
 
@@ -47,6 +53,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
 }
 
 

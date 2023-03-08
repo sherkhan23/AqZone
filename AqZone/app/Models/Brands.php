@@ -9,6 +9,9 @@ class Brands extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'BrandName'
+    ];
 
     public function categories(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

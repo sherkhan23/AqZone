@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\Aids;
 use App\Models\Countries;
 use App\Models\Cultures;
@@ -26,7 +28,7 @@ class AuthController extends Controller
         return view("auth.login");
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
         $data = $request->validate([
             "phoneNumber" => ["required"],
@@ -56,29 +58,13 @@ class AuthController extends Controller
         return view("auth.forgot");
     }
 
-    //  public function userData(){
-    //        $data = User::orderBy('id')->take(1)->get();
-    //        return view('/', [
-    //            'User' => $data,
-    //
-    //            ]);
-    //    }
-
-
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        $data = $request->validate([
-            "name" => ["required", "string"],
-            "phoneNumber" => ["required", "string", "unique:users,phoneNumber"],
-            "farmer" => ['required'],
-            "password" => ["required", "confirmed"]
-        ]);
-
-        $user = User::create([
-            "name" => $data["name"],
-            "phoneNumber" => $data["phoneNumber"],
-            "farmer" => $data["farmer"],
-            "password" => bcrypt($data["password"])
+        $user = User::query()->create([
+            "name" => $request->name,
+            "phoneNumber" =>  $request->phoneNumber,
+            "role" => $request->role,
+            "password" => bcrypt($request->password)
         ]);
 
         if($user) {
@@ -121,7 +107,7 @@ class AuthController extends Controller
                 $join->on('user_cultures.user_id', '=', 'users.user_id');
             })
             ->leftJoin('cultures', function ($join) {
-                $join->on('user_cultures.culture_id', '=', 'cultures.id');
+                $join->on('user_cultures.culture_id', '=', 'cultures.culture_id');
             })
             ->paginate();
 

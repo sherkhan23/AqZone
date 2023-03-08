@@ -11,6 +11,7 @@ use App\Models\Brands;
 use App\Models\Cart;
 use App\Models\Categories;
 use App\Models\Cultures;
+use App\Models\Dosage;
 use App\Models\HazardObjects;
 use App\Models\PreparativeForms;
 use App\Models\Producers;
@@ -39,26 +40,26 @@ class AidsController extends Controller
             ->leftJoin('preparative_forms', function ($join) {
                 $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
             })->leftJoin('producers', function ($join) {
-                $join->on('aids.producer_id', '=', 'producers.id');
+                $join->on('aids.producer_id', '=', 'producers.producer_id');
             })
             ->leftJoin('brands', function ($join) {
                 $join->on('aids.brand_id', '=', 'brands.id');
             })
             ->leftJoin('aid_components', function ($join) {
-                $join->on('aids.aid_components_id', '=', 'aid_components.id');
+                $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
             })
-            ->leftJoin('aids_utilization_norms', function ($join) {
-                $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
 
-                    ->leftJoin('cultures', function ($join) {
-                        $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                    })->leftJoin('hazard_objects', function ($join) {
-                        $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                    });
-            })
             ->filter($filter)
+            ->orderBy('aids_id', 'desc')
             ->paginate(4);
+
+        $aids_util_norms = AidsUtilizationNorms::query()
+                ->leftJoin('cultures', function ($join) {
+                    $join->on('aids_utilization_norms.culture_id', '=', 'cultures.culture_id');
+                })->leftJoin('hazard_objects', function ($join) {
+                    $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.hazard_id');
+        })->get();
+
 
         $carts = Cart::query()->paginate();
 
@@ -82,22 +83,20 @@ class AidsController extends Controller
                     $join->on('user_cultures.user_id', '=', 'users.user_id');
                 })
                 ->leftJoin('cultures', function ($join) {
-                    $join->on('user_cultures.culture_id', '=', 'cultures.id');
+                    $join->on('user_cultures.culture_id', '=', 'cultures.culture_id');
                 })
                 ->paginate();
 
-            $user_cult = Cultures::all();
-
+            $user_cult = Cultures::query()->get();
             $addCartRemove = Cart::query()->get();
 
             return view('catalog', compact('aids', 'carts', 'userCulture', 'cartCounter',
-                'appCounter', 'user_cult', 'addCartRemove'));
+                'appCounter', 'user_cult', 'addCartRemove', 'aids_util_norms'));
         }
         else{
             return view('catalog', compact('aids'));
         }
     }
-
 
     public function getAids($aids_id){
 
@@ -108,27 +107,36 @@ class AidsController extends Controller
             ->leftJoin('preparative_forms', function ($join) {
                 $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
             })->leftJoin('producers', function ($join) {
-                $join->on('aids.producer_id', '=', 'producers.id');
+                $join->on('aids.producer_id', '=', 'producers.producer_id');
             })
             ->leftJoin('brands', function ($join) {
                 $join->on('aids.brand_id', '=', 'brands.id');
             })
             ->leftJoin('aid_components', function ($join) {
-                $join->on('aids.aid_components_id', '=', 'aid_components.id');
-            })
-            ->leftJoin('aids_utilization_norms', function ($join) {
-                $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
-
-                    ->leftJoin('cultures', function ($join) {
-                        $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                    })->leftJoin('hazard_objects', function ($join) {
-                        $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                    });
+                $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
             })
             ->first();
 
-        return view('showAids', compact( 'aidItem'));
+        $aids_util_norms = AidsUtilizationNorms::query()
+            ->leftJoin('cultures', function ($join) {
+                $join->on('aids_utilization_norms.culture_id', '=', 'cultures.culture_id');
+            })->leftJoin('hazard_objects', function ($join) {
+                $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.hazard_id');
+            })->get();
+
+        $dosages = Dosage::query()
+            ->leftJoin('aids', function ($join) {
+                $join->on('dosages.aids_id', '=', 'aids.aids_id');
+            })->leftJoin('aid_components', function ($join) {
+                $join->on('dosages.aid_component_id', '=', 'aid_components.aid_component_id');
+            })->leftJoin('unit_of_measures', function ($join) {
+                $join->on('dosages.unit_of_measure_id', '=', 'unit_of_measures.unit_of_measure_id');
+            })->get();
+
+        $cultureCount = 0;
+        $cultureHazardCount = 0;
+        return view('showAids', compact( 'aidItem', 'aids_util_norms', 'cultureCount'
+        , 'cultureHazardCount', 'dosages'));
     }
 
     public function showApplications(){

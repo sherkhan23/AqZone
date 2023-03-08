@@ -30,28 +30,15 @@ class CartController extends Controller
                     ->leftJoin('preparative_forms', function ($join) {
                         $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
                     })->leftJoin('producers', function ($join) {
-                        $join->on('aids.producer_id', '=', 'producers.id');
+                        $join->on('aids.producer_id', '=', 'producers.producer_id');
                     })
                     ->leftJoin('brands', function ($join) {
                         $join->on('aids.brand_id', '=', 'brands.id');
                     })
                     ->leftJoin('aid_components', function ($join) {
-                        $join->on('aids.aid_components_id', '=', 'aid_components.id');
-                    })
-                    ->leftJoin('aids_utilization_norms', function ($join) {
-                        $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
-
-                            ->leftJoin('unit_of_measures', function ($join) {
-                                $join->on('aids_utilization_norms.unit_of_measure_id', '=', 'unit_of_measures.unit_of_measure_id');
-
-                            })
-                            ->leftJoin('cultures', function ($join) {
-                                $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-
-                            })->leftJoin('hazard_objects', function ($join) {
-                                $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                            });
+                        $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
                     });
+
             })
             ->paginate();
         $aidQuery = Aids::query();
@@ -85,7 +72,7 @@ class CartController extends Controller
                 'user_id' => Auth::id(),
                 'aids_id' => $request['aids_id'],
                 'quantity' => 1,
-                'user_culture' => $request->get('user-default-culture'),
+                'user_culture' => $request['user-default-culture'],
                 'user_culture_util_norm' => $request->get('aidsUtilizationRate'),
                 'user_culture_square' => $request['user_square']
             ]);
@@ -96,7 +83,7 @@ class CartController extends Controller
                 'user_id' => Auth::id(),
                 'aids_id' => $request['aids_id'],
                 'quantity' => 1,
-                'user_culture' => $request->get('user-default-culture'),
+                'user_culture' => $request['user-default-culture'],
                 'user_culture_util_norm' => $request->get('aidsUtilizationRate'),
                 'user_culture_square' => 0
             ]);
@@ -133,22 +120,15 @@ class CartController extends Controller
                 $join->on('aids.preparative_forms_id', '=', 'preparative_forms.id');
             })
             ->join('producers', function ($join) {
-                $join->on('aids.producer_id', '=', 'producers.id');
+                $join->on('aids.producer_id', '=', 'producers.producer_id');
             })
             ->join('brands', function ($join) {
                 $join->on('aids.brand_id', '=', 'brands.id');
             })
             ->join('aid_components', function ($join) {
-                $join->on('aids.aid_components_id', '=', 'aid_components.id');
+                $join->on('aids.aid_components_id', '=', 'aid_components.aid_component_id');
             })
-            ->leftJoin('aids_utilization_norms', function ($join) {
-                $join->on('aids.aids_utilization_norm_id', '=', 'aids_utilization_norms.util_norm_id')
-                    ->leftJoin('cultures', function ($join) {
-                        $join->on('aids_utilization_norms.culture_id', '=', 'cultures.id');
-                    })->leftJoin('hazard_objects', function ($join) {
-                        $join->on('aids_utilization_norms.hazard_id', '=', 'hazard_objects.id');
-                    });
-            })
+
             ->first();
     }
 

@@ -25,7 +25,7 @@
                     </a>
                 </li>
                 @auth("web")
-                    @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+                    @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
                         <li class="breadcrumb-item">
                             <a href="{{route('cart')}}">
                                 @auth('web')
@@ -46,7 +46,7 @@
                 <li class="breadcrumb-item">
                     <a class="nav-link-a" href="{{route('applications')}}">
                         @auth("web")
-                            @if(\Illuminate\Support\Facades\Auth::user()->farmer == 1)
+                            @if(\Illuminate\Support\Facades\Auth::user()->role == 'farmer')
                                 ({{$appCounter}})
                             @endif
 

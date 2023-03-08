@@ -14,7 +14,7 @@
                 <li class="mb-1 pt-2">
                     <b> Производитель (бренд)</b>
                     <select wire:model="selectedBrand" name="brandFilter" class="form-select" aria-label="Default select example">
-                        <option value="1" selected>Выберите бренд</option>
+                        <option disabled="disabled" selected>Выберите бренд</option>
                         @foreach($brands as $brand)
                             <option value="{{$brand->id}}">{{$brand->BrandName}}</option>
                         @endforeach
@@ -26,7 +26,7 @@
                         <b> Страна производства</b>
                         <select wire:model="selectedProducer" name="producerFilter" class="form-select" aria-label="Default select example">
                             @foreach($producers as $producer)
-                                <option value="{{$producer->id}}">{{$producer->ProducerName}}</option>
+                                <option value="{{$producer->producer_id}}">{{$producer->ProducerName}}</option>
                             @endforeach
                         </select>
                     </li>
@@ -45,7 +45,7 @@
                     <select name="cultureFilter" class="form-select" aria-label="Default select example">
                         <option selected="true" disabled="disabled">Выберите растение</option>
                         @foreach($cultures as $culture)
-                            <option value="{{$culture->id}}">{{$culture->cultureName}}</option>
+                            <option value="{{$culture->culture_id}}">{{$culture->cultureName}}</option>
                         @endforeach
                     </select>
                 </li>
@@ -55,7 +55,7 @@
                     <select name="hazardFilter" class="form-select" aria-label="Default select example">
                         <option selected="true" disabled="disabled">Выберите вредные объекты</option>
                         @foreach($hazards as $hazard)
-                            <option value="{{$hazard->id}}">{{$hazard->hazardName}}</option>
+                            <option value="{{$hazard->hazard_id}}">{{$hazard->hazardName}}</option>
                         @endforeach
                     </select>
                 </li>

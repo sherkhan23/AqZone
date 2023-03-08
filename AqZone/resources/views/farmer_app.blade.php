@@ -1,5 +1,5 @@
 {{--        for Farmer--}}
-@if(\Illuminate\Support\Facades\Auth::user()->farmer == 0)
+@if(\Illuminate\Support\Facades\Auth::user()->role == 'seller')
     <div class="row">
         <ul class="nav nav-tabs" id="tabApplication" role="tablist">
             <li class="nav-item" role="presentation">
