@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cultures;
 use App\Models\HazardObjects;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class HazardObjectsController extends Controller
 {
@@ -17,7 +18,8 @@ class HazardObjectsController extends Controller
     {
         $hazards = HazardObjects::query()
             ->orderBy('hazard_id', 'asc')
-            ->paginate();
+            ->paginate(7);
+        Paginator::useBootstrap();
 
         $cultures = Cultures::query()->get();
 
@@ -31,8 +33,12 @@ class HazardObjectsController extends Controller
      */
     public function create(Request $request)
     {
-        $data = HazardObjects::query()->create([
-            'hazardName' => $request->get('hazardName'),
+        $validated = $request->validate([
+            'hazardName' => ['required', 'unique:hazard_objects'],
+        ]);
+
+        HazardObjects::query()->create([
+            'hazardName' => $validated['hazardName'],
         ]);
 
         return redirect()->back()->with('updateMess','Успешно добавлено');

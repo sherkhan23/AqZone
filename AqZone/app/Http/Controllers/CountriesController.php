@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Countries;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class CountriesController extends Controller
 {
@@ -15,6 +16,8 @@ class CountriesController extends Controller
     public function index()
     {
         $countries = Countries::query()->paginate(10);
+        Paginator::useBootstrap();
+
         return view('admin.countries', compact('countries'));
 
     }

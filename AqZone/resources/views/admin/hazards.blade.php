@@ -38,6 +38,10 @@
     @if(session('updateMess'))
         <p class="p-2 bg-success text-white rounded mt-3">{{session('updateMess')}}</p>
     @endif
+    @error('hazardName')
+    <p class="text-danger">{{ $message }}</p>
+    <p class="text-danger">Пхд есть такая колонка)</p>
+    @enderror
 
     <div class="table-responsive">
         <div class="tab-content">
@@ -109,6 +113,13 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="d-flex justify-content-center align-content-center mt-3">
+        <a href="{{ $hazards->previousPageUrl() }}"><button class="btn btn-outline-primary btn-md" type="button">Назад</button></a>
+        <span class="mx-3">
+                                            {{ $hazards->withQueryString()->links() }}
+                                        </span>
+        <a href={{ $hazards->nextPageUrl()  }}>   <button class="btn btn-outline-primary btn-md ml-3" type="button">Следущий</button></a>
     </div>
 </main>
 </div>

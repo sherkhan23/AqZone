@@ -10,7 +10,7 @@ use App\Models\Cities;
 use App\Models\Countries;
 use App\Models\Locations;
 use App\Models\User;
-use App\Models\User_culture;
+use App\Models\User_cultures;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -68,7 +68,7 @@ class CartController extends Controller
 
         if ($request->get('user_culture') == 'default-culture' and
             $request['user_square'] == true){
-            $cart = Cart::create([
+            Cart::create([
                 'user_id' => Auth::id(),
                 'aids_id' => $request['aids_id'],
                 'quantity' => 1,
@@ -79,7 +79,7 @@ class CartController extends Controller
         }
         elseif ($request->get('user_culture') == 'default-culture' and
             $request['user_square'] == false){
-            $cart = Cart::create([
+            Cart::create([
                 'user_id' => Auth::id(),
                 'aids_id' => $request['aids_id'],
                 'quantity' => 1,
@@ -89,12 +89,12 @@ class CartController extends Controller
             ]);
         }
         elseif ($request->get('user_culture') == 'other-culture'){
-            $cart = Cart::create([
+            Cart::create([
                 'user_id' => Auth::id(),
                 'aids_id' => $request['aids_id'],
                 'quantity' => 1,
-                'user_culture' => $request['other-user_culture'],
                 'user_culture_util_norm' => $request->get('aidsUtilizationRate'),
+                'user_culture' => $request['other-user_culture'],
                 'user_culture_square' =>  0
             ]);
         }
@@ -163,81 +163,5 @@ class CartController extends Controller
         }else{
             return redirect()->back();
         }
-    }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Cart $cart)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Cart  $cart
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Cart $cart)
-    {
-        //
     }
 }

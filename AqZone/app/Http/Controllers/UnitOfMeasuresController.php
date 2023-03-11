@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\UnitOfMeasures;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class UnitOfMeasuresController extends Controller
 {
@@ -15,7 +16,7 @@ class UnitOfMeasuresController extends Controller
     public function index()
     {
         $unit_of_measures = UnitOfMeasures::query()->paginate(10);
-
+        Paginator::useBootstrap();
         return view('admin.unitOfMeasure', compact('unit_of_measures'));
     }
 

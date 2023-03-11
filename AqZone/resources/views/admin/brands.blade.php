@@ -112,6 +112,13 @@
                     </table>
                 </div>
             </div>
+            <div class="d-flex justify-content-center align-content-center mt-3">
+                <a href="{{ $brands->previousPageUrl() }}"><button class="btn btn-outline-primary btn-md" type="button">Назад</button></a>
+                <span class="mx-3">
+                                            {{ $brands->withQueryString()->links() }}
+                                        </span>
+                <a href={{ $brands->nextPageUrl()  }}>   <button class="btn btn-outline-primary btn-md ml-3" type="button">Следущий</button></a>
+            </div>
         </main>
     </div>
 </div>

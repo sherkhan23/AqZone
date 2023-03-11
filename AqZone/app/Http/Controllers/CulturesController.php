@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cultures;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\Paginator;
 
 class CulturesController extends Controller
 {
@@ -16,8 +17,8 @@ class CulturesController extends Controller
     {
         $cultures = Cultures::query()
             ->orderBy('culture_id', 'asc')
-            ->paginate();
-
+            ->paginate(6);
+        Paginator::useBootstrap();
         return view('admin.cultures', compact('cultures'));
     }
 
